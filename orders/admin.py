@@ -44,6 +44,13 @@ class OrderItemInline(admin.TabularInline):
     raw_id_fields = ['product']
 
 
+def order_pdf(obj):
+    return mark_safe('<a href="{}">PDF</a>'.format(reverse('orders:admin_order_pdf', args=[obj.id])))
+
+
+order_pdf.short_description = 'Invoice'
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     actions = [export_to_csv]
